@@ -1,0 +1,149 @@
+/* Quiz container */
+.quiz-container {
+    background: #f5f7fa; /* Matches Auth.css and Dashboard.css */
+    display: flex;
+    flex-direction: column;
+    font-family: -apple-system, 'SF Pro Text', 'Roboto', system-ui, sans-serif;
+    height: 100vh; /* Ensure container fills viewport height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-y: scroll; /* Still allows scrolling */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+}
+
+.quiz-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Quiz content */
+.quiz-content {
+    flex: 1;
+    max-width: 600px;
+    margin: calc(60px + 1rem) auto 40px; /* Reduced buffer for better fit */
+    padding: 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Quiz title */
+.quiz-content h2 {
+    font-size: 2.2em;
+    color: #1a202c;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+/* Form styles */
+.quiz-content form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Form question groups */
+.quiz-content form div {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Labels */
+.quiz-content label {
+    font-size: 1.1em;
+    color: #1a202c;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Small text for scale description */
+.quiz-content small {
+    font-size: 0.9em;
+    color: #4a5568;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Select dropdowns */
+.quiz-content select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: -apple-system, 'SF Pro Text', 'Roboto', system-ui, sans-serif;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.quiz-content select:focus {
+    border-color: #2b6cb0;
+}
+
+/* Submit button */
+.quiz-content button {
+    width: 100%;
+    padding: 12px;
+    background-color: #2b6cb0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-family: -apple-system, 'SF Pro Text', 'Roboto', system-ui, sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.quiz-content button:hover {
+    background-color: #2c5282;
+}
+
+/* Results section */
+.quiz-content h3 {
+    font-size: 1.8em;
+    color: #1a202c;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.quiz-content p {
+    font-size: 1.1em;
+    color: #4a5568;
+    margin-bottom: 10px;
+}
+
+.quiz-content p strong {
+    color: #1a202c;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .quiz-content {
+        margin-top: calc(80px + 1rem);
+        padding: 15px;
+    }
+
+    .quiz-content h2 {
+        font-size: 1.8em;
+    }
+
+    .quiz-content form {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 414px) {
+    .quiz-content {
+        margin-top: calc(100px + 1rem);
+        padding: 10px;
+    }
+
+    .quiz-content select, .quiz-content button {
+        font-size: 0.95em;
+    }
+
+    .quiz-content form {
+        padding: 10px;
+    }
+}

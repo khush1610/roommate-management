@@ -1,0 +1,140 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+.chat-container {
+  display: flex;
+  height: calc(100vh - 60px);  /* Subtract the height of your top navbar */
+  width: 100vw;
+  overflow: hidden;
+  margin-top: 60px;            /* Prevent it from hiding behind header */
+}
+
+
+.sidebar {
+  width: 30%;
+  background-color: #f8f8f8;
+  overflow-y: auto;
+  border-right: 1px solid #ddd;
+}
+
+.user-tile {
+  padding: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.user-tile:hover,
+.user-tile.active {
+  background-color: #e9ecef;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.chat-window {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+.chat-header {
+  padding: 14px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  background-color: #f5f5f5;
+  flex-shrink: 0;
+}
+
+.chat-messages {
+  flex-grow: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fff;
+}
+
+.chat-bubble {
+  max-width: 65%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-bubble.sent {
+  align-self: flex-end;
+  background-color: #dcf8c6;
+}
+
+.chat-bubble.received {
+  align-self: flex-start;
+  background-color: #e9ecef;
+}
+
+.timestamp {
+  font-size: 0.7rem;
+  color: #666;
+  align-self: flex-end;
+  margin-top: 4px;
+}
+
+.chat-input {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  flex-shrink: 0;
+  background-color: #fff;
+}
+
+.chat-input input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.chat-input button {
+  padding: 10px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.chat-placeholder {
+  margin: auto;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.unmatch-button {
+  margin-left: auto;
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.unmatch-button:hover {
+  background-color: #d9363e;
+}
+

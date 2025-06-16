@@ -1,0 +1,92 @@
+/* Ensure no inherited margins or padding affect the layout */
+html, body, #root  {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Header styles */
+header {
+    background-color: #ffffff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    width: 100vw;
+    left: 0;
+    box-sizing: border-box;
+    min-height: 60px; /* Set predictable height for margin calculations */
+    display: flex;
+    align-items: center;
+}
+
+/* Navigation styles */
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%; /* Ensure nav spans full container */
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    font-family: -apple-system, 'SF Pro Text', 'Roboto', system-ui, sans-serif;
+    font-size: 1em;
+    color: #2b6cb0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #2c5282;
+}
+
+/* Logout button */
+.nav-logout {
+    background: none;
+    border: none;
+    font-family: -apple-system, 'SF Pro Text', 'Roboto', system-ui, sans-serif;
+    font-size: 1em;
+    color: #2b6cb0;
+    cursor: pointer;
+    padding: 0;
+}
+
+.nav-logout:hover {
+    color: #2c5282;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    header {
+        min-height: 80px; /* Taller header for stacked nav on mobile */
+        padding: 10px 15px;
+    }
+
+    nav ul li {
+        margin: 5px 0;
+    }
+}
+
+@media (max-width: 414px) {
+    header {
+        min-height: 100px; /* Extra height for iPhone XR to handle stacked nav */
+    }
+
+    nav ul li a, .nav-logout {
+        font-size: 0.9em;
+    }
+}

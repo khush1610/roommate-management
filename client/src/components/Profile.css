@@ -1,0 +1,144 @@
+/* Profile container */
+.profile-container {
+    min-height: 100vh;
+    background: #f5f7fa;
+    display: flex;
+    flex-direction: column;
+    font-family: -apple-system, 'SF Pro Text', 'Roboto', system-ui, sans-serif;
+}
+
+/* Profile content */
+.profile-content {
+    flex: 1;
+    max-width: 600px; /* lightly narrower than dashboard for form focus */
+    margin: calc(60px + 2rem) auto 0; /* Matches Dashboard.css */
+    padding: 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Profile title */
+.profile-content h2 {
+    font-size: 2.2em;
+    color: #1a202c;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+/* Form styles */
+.profile-form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1); /* Matches Auth.css */
+}
+
+/* Avatar preview */
+.avatar-preview {
+    margin-bottom: 20px;
+}
+
+.avatar-preview img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #d1d5db;
+}
+
+/* Form group */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Labels */
+.form-group label {
+    font-size: 1.1em;
+    color: #1a202c;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Inputs */
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: -apple-system, 'SF Pro Text', 'Roboto', system-ui, sans-serif;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #2b6cb0;
+}
+
+/* File input */
+.form-group input[type="file"] {
+    padding: 5px;
+}
+
+/* Submit button */
+.profile-form button {
+    display: inline-block;
+    padding: 12px 24px; /* Matches Dashboard.css */
+    background-color: #2b6cb0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-family: -apple-system, 'SF Pro Text', 'Roboto', system-ui, sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px;
+    width: 100%; /* Ensure full width like dashboard buttons */
+}
+
+/* Button hover effect */
+.profile-form button:hover {
+    background-color: #2c5282;
+}
+
+/* Error message */
+.error-message {
+    color: #e53e3e;
+    font-size: 0.9em;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .profile-content {
+        margin-top: calc(80px + 2rem); /* Matches Dashboard.css */
+        padding: 20px;
+    }
+
+    .profile-content h2 {
+        font-size: 1.8em;
+    }
+
+    .profile-form {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 414px) {
+    .profile-content {
+        margin-top: calc(100px + 2rem); /* Matches Dashboard.css */
+        padding: 20px;
+    }
+
+    .form-group input, .profile-form button {
+        font-size: 0.95em;
+    }
+
+    .avatar-preview img {
+        width: 80px;
+        height: 80px;
+    }
+}

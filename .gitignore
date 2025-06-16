@@ -1,0 +1,13 @@
+# Ignore node_modules
+client/node_modules/
+server/node_modules/
+
+# Logs
+*.log
+
+# Environment files
+.env
+
+# OS/mac/win system files
+.DS_Store
+Thumbs.db

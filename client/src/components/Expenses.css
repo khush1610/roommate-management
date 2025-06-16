@@ -1,0 +1,127 @@
+/* Expenses.css */
+
+/* Force scrolling and override conflicting styles */
+html, body, #root {
+  height: auto !important; /* Allow content to grow */
+  min-height: 100vh; /* At least full viewport height */
+  margin: 0;
+  padding: 0;
+  overflow-y: auto !important; /* Ensure scrolling */
+}
+
+/* Hide scrollbar but keep scrolling functionality */
+html, body {
+  height: 100vh;
+  overflow-y: auto;
+  -ms-overflow-style: none;  /* IE & Edge */
+  scrollbar-width: none;   }
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.main-wrapper {
+  padding-top: 60px; /* Space for fixed header */
+  min-height: 100vh;
+  box-sizing: border-box;
+  max-width: 600px;
+  margin: 40px auto;
+}
+
+.expenses-container {
+  max-width: 600px;
+  margin: 0 auto 40px auto; /* Center with bottom margin */
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+}
+
+.expense-list {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.expense-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.expense-item h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  color: #333;
+}
+
+.expense-item p {
+  margin: 4px 0;
+  color: #555;
+}
+
+h1, h2 {
+  text-align: center;
+  color: #333;
+}
+
+form > div {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+button[type="submit"] {
+  background-color: #2b6cb0;
+  color: white;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #2c5282;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
