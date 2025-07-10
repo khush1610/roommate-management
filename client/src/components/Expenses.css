@@ -1,5 +1,3 @@
-/* Expenses.css */
-
 /* Force scrolling and override conflicting styles */
 html, body, #root {
   height: auto !important; /* Allow content to grow */
@@ -7,6 +5,20 @@ html, body, #root {
   margin: 0;
   padding: 0;
   overflow-y: auto !important; /* Ensure scrolling */
+  background: linear-gradient(135deg, #fefcbf 0%, #e6f0fa 100%); /* Warm yellow to soft blue */
+  position: relative;
+}
+
+/* Subtle roommate-themed SVG background */
+html::before, body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><path fill="%23f6ad55" fill-opacity="0.05" d="M40 20L20 40h15v20h10V40h15L40 20zM30 50a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm20 0a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/></svg>') repeat;
+  z-index: 0;
 }
 
 /* Hide scrollbar but keep scrolling functionality */
@@ -14,7 +26,8 @@ html, body {
   height: 100vh;
   overflow-y: auto;
   -ms-overflow-style: none;  /* IE & Edge */
-  scrollbar-width: none;   }
+  scrollbar-width: none;     /* Firefox */
+}
 
 html::-webkit-scrollbar, body::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge */
@@ -24,29 +37,46 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   padding-top: 60px; /* Space for fixed header */
   min-height: 100vh;
   box-sizing: border-box;
-  max-width: 600px;
+  max-width: 600px; /* Match chores-container */
   margin: 40px auto;
+  position: relative;
+  z-index: 1;
 }
 
 .expenses-container {
-  max-width: 600px;
-  margin: 0 auto 40px auto; /* Center with bottom margin */
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+  max-width: 600px; /* Match chore-form-container */
+  width: 100%; /* Expand to full parent width */
+  margin: 20px auto;
+  padding: 5px 20px 10px 10px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .expense-list {
-  max-width: 600px;
-  margin: 0 auto;
+  max-width: 600px; /* Match chore-list */
+  width: 100%; /* Expand to full parent width */
+  margin-top: 30px;
   padding: 20px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 1;
 }
 
 .expense-item {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  background-color: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
   padding: 15px;
   margin-bottom: 15px;
 }
@@ -54,17 +84,22 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 .expense-item h3 {
   margin: 0 0 8px;
   font-size: 18px;
-  color: #333;
+  color: #2d3748;
+  font-family: -apple-system, 'SF Pro Display', 'Roboto', system-ui, sans-serif;
 }
 
 .expense-item p {
   margin: 4px 0;
-  color: #555;
+  color: #4a5568;
+  font-family: -apple-system, 'SF Pro Display', 'Roboto', system-ui, sans-serif;
 }
 
 h1, h2 {
   text-align: center;
-  color: #333;
+  color: #2d3748;
+  font-family: -apple-system, 'SF Pro Display', 'Roboto', system-ui, sans-serif;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 form > div {
@@ -75,7 +110,8 @@ label {
   display: block;
   font-weight: 600;
   margin-bottom: 6px;
-  color: #444;
+  color: #2d3748;
+  font-family: -apple-system, 'SF Pro Display', 'Roboto', system-ui, sans-serif;
 }
 
 input[type="text"],
@@ -84,10 +120,22 @@ select,
 textarea {
   width: 100%;
   padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
   font-size: 14px;
   box-sizing: border-box;
+  background-color: #f7fafc;
+  font-family: -apple-system, 'SF Pro Display', 'Roboto', system-ui, sans-serif;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+  border-color: #f6ad55; /* Vibrant orange */
+  box-shadow: 0 0 0 3px rgba(246, 173, 85, 0.15);
 }
 
 textarea {
@@ -96,32 +144,39 @@ textarea {
 }
 
 button[type="submit"] {
-  background-color: #2b6cb0;
+  background-color: #f6ad55; /* Vibrant orange */
   color: white;
   padding: 12px 18px;
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
   font-weight: bold;
   font-size: 15px;
   width: 100%;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: -apple-system, 'SF Pro Display', 'Roboto', system-ui, sans-serif;
 }
 
 button[type="submit"]:hover {
-  background-color: #2c5282;
+  background-color: #ed8936;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(246, 173, 85, 0.3);
 }
 
 .delete-btn {
-  background-color: #dc3545;
+  background-color: #e53e3e; /* Red for delete */
   color: white;
   border: none;
   padding: 8px 12px;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
   margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: -apple-system, 'SF Pro Display', 'Roboto', system-ui, sans-serif;
 }
 
 .delete-btn:hover {
-  background-color: #c82333;
+  background-color: #c53030;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Chat.css";
+import defaultAvatar from "./default-avatar.png";
 
 const Chat = () => {
   const [matchedUsers, setMatchedUsers] = useState([]);
@@ -55,7 +56,7 @@ const Chat = () => {
     try {
       await axios.post(
         `http://localhost:5000/api/profiles/chat/${selectedUser.id}`,
-        { message: newMessage }, 
+        { message: newMessage },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -115,12 +116,11 @@ const Chat = () => {
             }`}
             onClick={() => handleUserSelect(user)}
           >
-            <img
-              src={user.avatar || "/default-avatar.png"}
-              alt="Avatar"
-              className="avatar"
-            />
-            <span>{user.username}</span>
+            <img src={defaultAvatar} alt="Avatar" className="avatar" />
+
+            <span>
+              {user.username.replace(/([a-z])([A-Z])/g, "$1 $2")}
+            </span>
           </div>
         ))}
       </div>
@@ -129,7 +129,11 @@ const Chat = () => {
         {selectedUser ? (
           <>
             <div className="chat-header">
-              <span>Chat with {selectedUser.username}</span> &nbsp;
+              <span>
+                Chat with{" "}
+                {selectedUser.username.replace(/([a-z])([A-Z])/g, "$1 $2")}
+              </span>{" "}
+              &nbsp;
               <button className="unmatch-button" onClick={handleUnmatch}>
                 Unmatch
               </button>

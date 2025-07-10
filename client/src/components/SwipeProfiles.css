@@ -1,5 +1,3 @@
-/* SwipeProfiles.css */
-
 /* Override conflicting styles from auth.css or App.css */
 html, body, #root {
   height: auto !important; /* Allow content to grow */
@@ -23,7 +21,6 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 /* Swipe container */
 .swipe-container {
   min-height: auto; /* Allow content to dictate height */
-  background: hsl(0, 0%, 100%);
   display: flex;
   flex-direction: column;
   font-family: -apple-system, 'SF Pro Text', 'Roboto', system-ui, sans-serif;
@@ -43,11 +40,11 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   padding: 20px;
 }
 
-/* Profile card */
+/* Profile card base styles */
 .profile-card {
   position: relative;
   max-width: 100%;
-  height: 400px;
+  height: 450px; /* Fixed height for consistency */
   margin-bottom: 20px;
   background-color: white;
   border-radius: 10px;
@@ -56,21 +53,63 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding: 20px;
 }
 
-/* Profile info */
-.profile-card h3 {
+/* Transparent avatar mode (background with overlay) */
+.profile-card.transparent-avatar {
+  background-size: cover;
+  background-position: center;
+  background-image: url('./default-avatar.png'); /* Fallback to default avatar */
+}
+
+/* Overlay for text legibility in transparent mode */
+.profile-card.transparent-avatar .profile-info {
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+  padding: 15px;
+  border-radius: 8px;
+  color: white; /* White text for contrast */
+}
+
+/* Transparent avatar image (hidden in transparent mode) */
+.profile-card.transparent-avatar .profile-avatar {
+  display: none; /* Hide the avatar image since it's used as background */
+}
+
+/* Rectangular avatar mode */
+.profile-card.rectangular-avatar .profile-avatar {
+  width: 200px;
+  height: 150px; /* Rectangular shape */
+  object-fit: cover; /* Ensure image fits */
+  margin-bottom: 20px; /* Space below avatar */
+}
+
+/* Profile info (common styles) */
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.profile-info h3 {
   margin: 0;
   font-size: 24px;
   font-weight: 500;
   color: #1a202c;
 }
 
-.profile-card p {
+.profile-info p {
   font-size: 16px;
   color: #4a5568;
   margin: 10px 0;
+}
+
+/* Override colors for transparent mode */
+.profile-card.transparent-avatar .profile-info h3,
+.profile-card.transparent-avatar .profile-info p {
+  color: white; /* White text for contrast */
 }
 
 /* Swipe actions */
@@ -139,14 +178,19 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   }
 
   .profile-card {
-    height: 350px;
+    height: 400px;
   }
 
-  .profile-card h3 {
+  .profile-card.rectangular-avatar .profile-avatar {
+    width: 160px;
+    height: 120px;
+  }
+
+  .profile-info h3 {
     font-size: 20px;
   }
 
-  .profile-card p {
+  .profile-info p {
     font-size: 14px;
   }
 }
@@ -158,7 +202,12 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   }
 
   .profile-card {
-    height: 300px;
+    height: 350px;
+  }
+
+  .profile-card.rectangular-avatar .profile-avatar {
+    width: 120px;
+    height: 90px;
   }
 
   .swipe-actions button,

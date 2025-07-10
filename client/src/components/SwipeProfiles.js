@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import defaultAvatar from "./default-avatar.png"; // Import the avatar
 import "./SwipeProfiles.css";
 
 const SwipeProfiles = () => {
@@ -15,7 +16,7 @@ const SwipeProfiles = () => {
         const token = localStorage.getItem("authToken");
         if (!token) {
           console.error("No auth token found");
-          navigate("/auth"); 
+          navigate("/auth");
           return;
         }
         const response = await axios.get("http://localhost:5000/api/profiles/swipe", {
@@ -23,7 +24,7 @@ const SwipeProfiles = () => {
         });
 
         console.log("Fetched profiles:", response.data);
-        setProfiles(response.data.profiles || []); 
+        setProfiles(response.data.profiles || []);
       } catch (error) {
         console.error("Error fetching profiles:", error.response?.data || error.message);
       }
@@ -81,14 +82,21 @@ const SwipeProfiles = () => {
   return (
     <div className="swipe-container">
       <h2>Swipe Profiles</h2>
-      <div className="profile-card">
-        <h3>{profile.username}</h3>
-        <p>
-          <strong>Compatibility Score:</strong> {profile.compatibilityScore}
-        </p>
-        <p>
-          <strong>Match Percentage:</strong> {profile.compatibilityPercent}%
-        </p>
+      <div className="profile-card rectangular-avatar"> {/* Change to 'transparent-avatar' for overlay */}
+        <img
+          src={defaultAvatar}
+          alt={`${profile.username}'s avatar`}
+          className="profile-avatar"
+        />
+        <div className="profile-info">
+          <h3>{profile.username}</h3>
+          <p>
+            <strong>Compatibility Score:</strong> {profile.compatibilityScore}
+          </p>
+          <p>
+            <strong>Match Percentage:</strong> {profile.compatibilityPercent}%
+          </p>
+        </div>
       </div>
 
       <div className="swipe-actions">
