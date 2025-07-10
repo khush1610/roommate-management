@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import defaultAvatar from "./default-avatar.png"; // Import the avatar
 import "./SwipeProfiles.css";
+const API_BASE = process.env.REACT_APP_API_URL;
 
 const SwipeProfiles = () => {
   const [profiles, setProfiles] = useState([]);
@@ -19,14 +20,17 @@ const SwipeProfiles = () => {
           navigate("/auth");
           return;
         }
-        const response = await axios.get("http://localhost:5000/api/profiles/swipe", {
+        const response = await axios.get(`${API_BASE}/api/profiles/swipe`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
         console.log("Fetched profiles:", response.data);
         setProfiles(response.data.profiles || []);
       } catch (error) {
-        console.error("Error fetching profiles:", error.response?.data || error.message);
+        console.error(
+          "Error fetching profiles:",
+          error.response?.data || error.message
+        );
       }
     };
 
@@ -42,14 +46,18 @@ const SwipeProfiles = () => {
       try {
         const token = localStorage.getItem("authToken");
         await axios.post(
-          "http://localhost:5000/api/profiles/swipe",
+          `${API_BASE}/api/profiles/swipe`,
+
           { likedUserId: profile.user_id },
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setLikedProfiles([...likedProfiles, profile]);
         console.log("Liked profile:", profile);
       } catch (error) {
-        console.error("Error saving match:", error.response?.data || error.message);
+        console.error(
+          "Error saving match:",
+          error.response?.data || error.message
+        );
       }
     }
 
@@ -82,7 +90,9 @@ const SwipeProfiles = () => {
   return (
     <div className="swipe-container">
       <h2>Swipe Profiles</h2>
-      <div className="profile-card rectangular-avatar"> {/* Change to 'transparent-avatar' for overlay */}
+      <div className="profile-card rectangular-avatar">
+        {" "}
+        {/* Change to 'transparent-avatar' for overlay */}
         <img
           src={defaultAvatar}
           alt={`${profile.username}'s avatar`}

@@ -8,6 +8,7 @@ const Dashboard = () => {
   const navigate = useNavigate();  
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const API_BASE = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -17,7 +18,7 @@ const Dashboard = () => {
         return;
       }
       try {
-        const response = await axios.get('http://localhost:5000/api/auth/user', {
+        const response = await axios.get(`${API_BASE}/api/auth/user`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setUser(response.data);
@@ -29,7 +30,7 @@ const Dashboard = () => {
     };
 
     fetchUserData();
-  }, []);
+  }, [API_BASE]);
 
   if (loading) {
     return <p>Loading...</p>;

@@ -10,11 +10,12 @@ const Expenses = () => {
   const [expenseDate, setExpenseDate] = useState("");
 
   const token = localStorage.getItem("authToken");
+  const API_BASE = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/expenses", {
+        const res = await fetch(`${API_BASE}/api/expenses`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -40,7 +41,7 @@ const Expenses = () => {
     };
 
     fetchExpenses();
-  }, [token]);
+  }, [token, API_BASE]);
 
   const handleAddExpense = async (e) => {
     e.preventDefault();
@@ -54,7 +55,7 @@ const Expenses = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/api/expenses", {
+      const response = await fetch(`${API_BASE}/api/expenses`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -90,7 +91,7 @@ const Expenses = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/expenses/${id}`, {
+      const response = await fetch(`${API_BASE}/api/expenses/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

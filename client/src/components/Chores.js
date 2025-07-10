@@ -7,13 +7,15 @@ const Chores = () => {
   const [dueDate, setDueDate] = useState("");
   const [chores, setChores] = useState([]);
 
+  const API_BASE = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     fetchChores();
   }, []);
 
   const fetchChores = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/chores");
+      const res = await fetch(`${API_BASE}/api/chores`);
       const data = await res.json();
       setChores(data);
     } catch (error) {
@@ -23,7 +25,7 @@ const Chores = () => {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/chores/${id}`, {
+      await fetch(`${API_BASE}/api/chores/${id}`, {
         method: "DELETE",
       });
       setChores((prev) => prev.filter((chore) => chore.id !== id));
@@ -42,14 +44,14 @@ const Chores = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/api/chores", {
+      const res = await fetch(`${API_BASE}/api/chores`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newChore),
       });
 
       if (!res.ok) throw new Error("Failed to add chore");
-      await fetchChores(); 
+      await fetchChores();
       setChoreName("");
       setAssignedTo("");
       setDueDate("");
@@ -61,7 +63,7 @@ const Chores = () => {
   const toggleChoreStatus = async (id, currentStatus) => {
     const newStatus = currentStatus === "Completed" ? "Pending" : "Completed";
     try {
-      await fetch(`http://localhost:5000/api/chores/${id}/status`, {
+      await fetch(`${API_BASE}/api/chores/${id}/status`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: newStatus }),
@@ -79,74 +81,64 @@ const Chores = () => {
 
   return (
     <div className="chores-page-wrapper">
-    <div className="chores-container">
-      <div className="chore-form-container">
-        <h1>Chores</h1>
-        <form onSubmit={handleAddChore}>
-          <div>
-            <label>Chore Name</label>
-            <input
-              type="text"
-              value={choreName}
-              onChange={(e) => setChoreName(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label>Assign to</label>
-            <input
-              type="text"
-              value={assignedTo}
-              onChange={(e) => setAssignedTo(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label>Due Date</label>
-            <input
-              type="date"
-              value={dueDate}
-              onChange={(e) => setDueDate(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit">Add Chore</button>
-        </form>
-      </div>
-
-      <div className="chore-list">
-        <h2>Chore List</h2>
-        {chores.map((chore) => (
-          <div className="chore-item" key={chore.id}>
-            <h3>{chore.chore_name}</h3>
-            <p>
-              <strong>Assigned To:</strong> {chore.assigned_to}
-            </p>
-            <p>
-              <strong>Due Date:</strong>{" "}
-              {new Date(chore.due_date).toLocaleDateString()}
-            </p>
-            <p>
-              <strong>Status:</strong> {chore.status}
-            </p>
-            <label>
+      <div className="chores-container">
+        <div className="chore-form-container">
+          <h1>Chores</h1>
+          <form onSubmit={handleAddChore}>
+            <div>
+              <label>Chore Name</label>
               <input
-                type="checkbox"
-                checked={chore.status === "Completed"}
-                onChange={() => toggleChoreStatus(chore.id, chore.status)}
-              />{" "}
-              Mark as Completed
-            </label>
-            <button
-              className="delete-btn"
-              onClick={() => handleDelete(chore.id)}
-            >
-              Delete
-            </button>
-          </div>
-        ))}
+                type="text"
+                value={choreName}
+                onChange={(e) => setChoreName(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label>Assign to</label>
+              <input
+                type="text"
+                value={assignedTo}
+                onChange={(e) => setAssignedTo(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label>Due Date</label>
+              <input
+                type="date"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit">Add Chore</button>
+          </form>
+        </div>
+
+        <div className="chore-list">
+          <h2>Chore List</h2>
+          {chores.map((chore) => (
+            <div className="chore-item" key={chore.id}>
+              <h3>{chore.chore_name}</h3>
+              <p><strong>Assigned To:</strong> {chore.assigned_to}</p>
+              <p><strong>Due Date:</strong> {new Date(chore.due_date).toLocaleDateString()}</p>
+              <p><strong>Status:</strong> {chore.status}</p>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={chore.status === "Completed"}
+                  onChange={() => toggleChoreStatus(chore.id, chore.status)}
+                />{" "}
+                Mark as Completed
+              </label>
+              <button className="delete-btn" onClick={() => handleDelete(chore.id)}>
+                Delete
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
     </div>
   );
 };

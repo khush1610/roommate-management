@@ -11,6 +11,8 @@ const Quiz = () => {
   const [average, setAverage] = useState(null);
   const [category, setCategory] = useState("");
 
+  const API_BASE = process.env.REACT_APP_API_URL;
+
   const getCategory = (avg) => {
     if (avg <= 1.75) return "Introverted & Structured";
     if (avg <= 2.5) return "Balanced";
@@ -24,7 +26,7 @@ const Quiz = () => {
     try {
       const token = localStorage.getItem("authToken");
       await axios.post(
-        "http://localhost:5000/api/quiz/submit",
+        `${API_BASE}/api/quiz/submit`,
         {
           cleanliness,
           social_activities: socialActivities,

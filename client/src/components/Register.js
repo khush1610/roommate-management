@@ -10,11 +10,14 @@ const Register = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // ✅ Use environment variable
+  const API_BASE = process.env.REACT_APP_API_URL;
+
   const handleRegister = async (e) => {
     e.preventDefault();
     const userData = { username, email, password };
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', userData);
+      const response = await axios.post(`${API_BASE}/api/auth/register`, userData);
       console.log(response.data.message);
       navigate('/login');
     } catch (error) {

@@ -9,6 +9,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
 
+  const API_BASE = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("authToken");
 
   useEffect(() => {
@@ -21,7 +22,7 @@ const Chat = () => {
   useEffect(() => {
     const fetchMatches = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/matches", {
+        const response = await axios.get(`${API_BASE}/api/matches`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setMatchedUsers(response.data.matches);
@@ -30,7 +31,7 @@ const Chat = () => {
       }
     };
     fetchMatches();
-  }, [token]);
+  }, [token, API_BASE]);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -38,24 +39,23 @@ const Chat = () => {
 
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/profiles/chat/${selectedUser.id}`,
+          `${API_BASE}/api/profiles/chat/${selectedUser.id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        console.log("Fetched messages:", response.data.messages);
         setMessages(response.data.messages);
       } catch (error) {
         console.error("Failed to fetch messages:", error);
       }
     };
     fetchMessages();
-  }, [selectedUser, token]);
+  }, [selectedUser, token, API_BASE]);
 
   const handleSend = async () => {
     if (!newMessage.trim()) return;
 
     try {
       await axios.post(
-        `http://localhost:5000/api/profiles/chat/${selectedUser.id}`,
+        `${API_BASE}/api/profiles/chat/${selectedUser.id}`,
         { message: newMessage },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -80,7 +80,7 @@ const Chat = () => {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/profiles/unmatch",
+        `${API_BASE}/api/profiles/unmatch`,
         { targetUserId: selectedUser.id },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -90,7 +90,6 @@ const Chat = () => {
       );
       setSelectedUser(null);
       setMessages([]);
-
       localStorage.removeItem("selectedUser");
 
       alert("Unmatched successfully.");
@@ -117,10 +116,7 @@ const Chat = () => {
             onClick={() => handleUserSelect(user)}
           >
             <img src={defaultAvatar} alt="Avatar" className="avatar" />
-
-            <span>
-              {user.username.replace(/([a-z])([A-Z])/g, "$1 $2")}
-            </span>
+            <span>{user.username.replace(/([a-z])([A-Z])/g, "$1 $2")}</span>
           </div>
         ))}
       </div>
@@ -132,7 +128,7 @@ const Chat = () => {
               <span>
                 Chat with{" "}
                 {selectedUser.username.replace(/([a-z])([A-Z])/g, "$1 $2")}
-              </span>{" "}
+              </span>
               &nbsp;
               <button className="unmatch-button" onClick={handleUnmatch}>
                 Unmatch
@@ -156,6 +152,7 @@ const Chat = () => {
                 </div>
               ))}
             </div>
+
             <div className="chat-input">
               <input
                 value={newMessage}

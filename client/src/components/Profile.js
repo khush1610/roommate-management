@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Profile.css";
-import defaultAvatar from "./default-avatar.png"; 
+import defaultAvatar from "./default-avatar.png";
 
 const ProfileUpdate = () => {
-  const [profile, setProfile] = useState({
-    email: "",
-    avatar: "",
-  });
+  const [profile, setProfile] = useState({ email: "", avatar: "" });
   const [passwordData, setPasswordData] = useState({
     currentPassword: "",
     newPassword: "",
@@ -17,10 +14,12 @@ const ProfileUpdate = () => {
   const [passwordError, setPasswordError] = useState("");
   const token = localStorage.getItem("authToken");
 
+  const API_BASE = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/users/profile", {
+        const res = await axios.get(`${API_BASE}/api/users/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(res.data);
@@ -29,7 +28,7 @@ const ProfileUpdate = () => {
       }
     };
     fetchProfile();
-  }, [token]);
+  }, [API_BASE, token]);
 
   const handleInputChange = (e) => {
     setProfile((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -45,13 +44,14 @@ const ProfileUpdate = () => {
   };
 
   const validatePasswords = () => {
-    if (!passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword) {
+    const { currentPassword, newPassword, confirmPassword } = passwordData;
+    if (!currentPassword || !newPassword || !confirmPassword) {
       return "All password fields are required.";
     }
-    if (passwordData.newPassword.length < 8) {
+    if (newPassword.length < 8) {
       return "New password must be at least 8 characters long.";
     }
-    if (passwordData.newPassword !== passwordData.confirmPassword) {
+    if (newPassword !== confirmPassword) {
       return "New password and confirm password do not match.";
     }
     return null;
@@ -62,12 +62,10 @@ const ProfileUpdate = () => {
 
     const formData = new FormData();
     formData.append("email", profile.email);
-    if (selectedFile) {
-      formData.append("avatar", selectedFile);
-    }
+    if (selectedFile) formData.append("avatar", selectedFile);
 
     try {
-      await axios.put("http://localhost:5000/api/users/profile", formData, {
+      await axios.put(`${API_BASE}/api/users/profile`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
@@ -79,7 +77,11 @@ const ProfileUpdate = () => {
       alert("Profile update failed!");
     }
 
-    if (passwordData.currentPassword || passwordData.newPassword || passwordData.confirmPassword) {
+    if (
+      passwordData.currentPassword ||
+      passwordData.newPassword ||
+      passwordData.confirmPassword
+    ) {
       const passwordValidationError = validatePasswords();
       if (passwordValidationError) {
         setPasswordError(passwordValidationError);
@@ -88,7 +90,7 @@ const ProfileUpdate = () => {
 
       try {
         await axios.put(
-          "http://localhost:5000/api/users/change-password",
+          `${API_BASE}/api/users/change-password`,
           {
             currentPassword: passwordData.currentPassword,
             newPassword: passwordData.newPassword,
@@ -116,7 +118,7 @@ const ProfileUpdate = () => {
               src={
                 selectedFile
                   ? URL.createObjectURL(selectedFile)
-                  : profile.avatar || defaultAvatar 
+                  : profile.avatar || defaultAvatar
               }
               alt="Profile Preview"
             />
